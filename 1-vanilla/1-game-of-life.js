@@ -16,9 +16,16 @@ function isCellAliveInNextGeneration(isCellAlive, numberOfLiveNeighbours) {
       expect(isAlive).toBe(false);
     });
   
-    it('should return true when a live cell has two or three live neighbours - survival', function () {
+    it('should return true when a live cell has two live neighbours - survival', function () {
   
       var isAlive = isCellAliveInNextGeneration(1,2);
+
+      expect(isAlive).toBe(true);
+    });
+  
+    it('should return true when a live cell has three live neighbours - survival', function () {
+  
+      var isAlive = isCellAliveInNextGeneration(1,3);
       
       expect(isAlive).toBe(true);
     });
