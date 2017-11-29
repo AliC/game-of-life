@@ -1,19 +1,31 @@
 class GameOfLife {
   
   constructor() {
-  
+
+    this.liveCells = {};
+
   }
 
   isCellAlive(row, column) {
-    return false;
+    return this.liveCells[row+","+column] || false;
   }
 
   toggleCellState(row, column) {
   
+    this.liveCells[row+","+column] = !this.liveCells[row+","+column];
+
+  }
+
+  numberOfLiveNeighbours(row, column) {
+
+    return this.isCellAlive(row - 1, column) + this.isCellAlive(row + 1, column) + this.isCellAlive(row, column - 1) + this.isCellAlive(row, column + 1);
+
   }
 
   tick() {
   
+    isCellAlive(this.liveCells["2,3"]) && numberOfLiveNeighbours(2,3) < 2;
+
   }
 
 }
@@ -37,7 +49,37 @@ describe('2 - Game of Life', function () {
   
   });
   
-  it('3 - should set the cell state to dead in next generation if the cell is alive in current generation and has less than 2 neighbours', function () {
+  it('3a - should return number of live neighbours - 1', function() {
+    gameOfLife.toggleCellState(2,2);
+    gameOfLife.toggleCellState(2,3);
+    gameOfLife.toggleCellState(2,4);
+
+    var numberOfLiveNeighbours = gameOfLife.numberOfLiveNeighbours(2,3);
+
+    expect(numberOfLiveNeighbours).toBe(2);
+  });
+
+  it('3a - should return number of live neighbours - 2', function() {
+    gameOfLife.toggleCellState(1,3);
+    gameOfLife.toggleCellState(2,3);
+    gameOfLife.toggleCellState(3,3);
+
+    var numberOfLiveNeighbours = gameOfLife.numberOfLiveNeighbours(2,3);
+
+    expect(numberOfLiveNeighbours).toBe(2);
+  });
+
+  it('3a - should return number of live neighbours - 3', function() {
+    gameOfLife.toggleCellState(2,2);
+    gameOfLife.toggleCellState(2,3);
+    gameOfLife.toggleCellState(3,3);
+
+    var numberOfLiveNeighbours = gameOfLife.numberOfLiveNeighbours(2,3);
+
+    expect(numberOfLiveNeighbours).toBe(2);
+  });
+
+  it('3 - should set the cell state to dead in next generation if the cell is alive in current generation and has less than 2 live neighbours', function () {
     gameOfLife.toggleCellState(2, 3);
 
     gameOfLife.tick();
