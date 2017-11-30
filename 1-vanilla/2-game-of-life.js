@@ -24,8 +24,9 @@ class GameOfLife {
 
   tick() {
   
-    isCellAlive(this.liveCells["2,3"]) && numberOfLiveNeighbours(2,3) < 2;
-
+    if(this.isCellAlive(2,3) && this.numberOfLiveNeighbours(2,3) < 2) {
+      this.toggleCellState(2,3)
+    }
   }
 
 }
@@ -79,12 +80,20 @@ describe('2 - Game of Life', function () {
     expect(numberOfLiveNeighbours).toBe(2);
   });
 
-  it('3 - should set the cell state to dead in next generation if the cell is alive in current generation and has less than 2 live neighbours', function () {
-    gameOfLife.toggleCellState(2, 3);
+  it('3 - should set the cell state to dead in next generation if the cell is alive in current generation and has less than 2 live neighbours - 1', function () {
+    gameOfLife.toggleCellState(2,3);
 
     gameOfLife.tick();
 
-    expect(gameOfLife.isCellAlive(2, 3)).toBe(false);
+    expect(gameOfLife.isCellAlive(2,3)).toBe(false);
+  });
+
+  it('3 - should set the cell state to dead in next generation if the cell is alive in current generation and has less than 2 live neighbours - 1', function () {
+    gameOfLife.toggleCellState(4,2);
+
+    gameOfLife.tick();
+
+    expect(gameOfLife.isCellAlive(4,2)).toBe(false);
   });
 
 });
